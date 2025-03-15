@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Camera Photo Capture</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+      }
+      h1 {
+        margin-bottom: 20px;
+      }
+      video,
+      canvas {
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        max-width: 100%;
+        margin: 10px 0;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Camera Photo Capture</h1>
+    <video id="video" autoplay></video>
+
+    <button id="snap">Take Photo</button>
+
+    <canvas id="canvas" width="640" height="480"></canvas>
+
+    <script>
+      const video = document.getElementById("video");
+      const canvas = document.getElementById("canvas");
+      const snapButton = document.getElementById("snap");
+      const context = canvas.getContext("2d");
+
+      // Check if the browser supports accessing the user's media devices
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices
+          .getUserMedia({ video: true })
+          .then(function (stream) {
+            if ("srcObject" in video) {
+              video.srcObject = stream;
+            } else {
+              video.src = window.URL.createObjectURL(stream);
+            }
+            video.play();
+          })
+          .catch(function (error) {
+            console.error("Error accessing the camera", error);
+            alert("Unable to access the camera. Please check your settings.");
+          });
+      } else {
+        alert("getUserMedia is not supported by your browser.");
+      }
+
+      snapButton.addEventListener("click", function () {
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      });
+    </script>
+  </body>
+</html>
