@@ -1,10 +1,11 @@
+import os
 import time
 from collections import deque
 from datetime import datetime, timedelta
 
 import cv2
 import dlib
-from flask import Flask, Response, render_template
+from flask import Flask, Response, jsonify, render_template
 from imutils import face_utils
 from scipy.spatial import distance as dist
 
@@ -169,6 +170,15 @@ def video_feed():
     return Response(
         generate_frames(), mimetype="multipart/x-mixed-replace; boundary=frame"
     )
+
+
+@app.route("/photo_timestamp")
+def photo_timestamp():
+    photo_path = "static/captured.jpg"
+    if os.path.exists(photo_path):
+        timestamp = os.path.getmtime(photo_path)
+        return jsonify(timestamp=timestamp)
+    return jsonify(timestamp=0)
 
 
 if __name__ == "__main__":
