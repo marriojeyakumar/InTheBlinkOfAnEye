@@ -2,28 +2,44 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Blink Photo Capture</title>
+    <title>Automatic Selfie Taker!</title>
+    <!-- Import a modern Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='styles.css') }}"
     />
   </head>
   <body>
-    <h1>Blink to Capture a Photo</h1>
-    <div class="container">
-      <div class="video-container">
-        <h2>Live Video Feed</h2>
-        <img src="{{ url_for('video_feed') }}" alt="Video Feed" />
+    <header>
+      <h1>Automatic Selfie Taker!</h1>
+    </header>
+    <main>
+      <div class="content-wrapper">
+        <section class="video-section">
+          <h2>Live Video Feed</h2>
+          <div class="video-wrapper">
+            <img src="{{ url_for('video_feed') }}" alt="Live Video Feed" />
+          </div>
+        </section>
+        <section class="capture-section">
+          <h2>Captured Photo</h2>
+          <div class="capture-wrapper">
+            <img
+              id="captured"
+              src="{{ url_for('static', filename='captured.jpg') }}"
+              alt="Captured Photo"
+            />
+          </div>
+        </section>
       </div>
-      <div class="captured-container">
-        <h2>Captured Photo</h2>
-        <img
-          id="captured"
-          src="{{ url_for('static', filename='captured.jpg') }}"
-          alt="Captured Photo"
-        />
-      </div>
-    </div>
+    </main>
+    <footer>
+      <p>InTheBlinkOfAnEye &copy; 2025</p>
+    </footer>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
   </body>
 </html>
