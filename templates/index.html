@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Blink Photo Capture</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <h1>Blink to Capture a Photo</h1>
+    <div class="container">
+      <div class="video-container">
+        <h2>Live Video Feed</h2>
+        <!-- The image source streams from the Flask video_feed route -->
+        <img src="{{ url_for('video_feed') }}" alt="Video Feed" />
+      </div>
+      <div class="captured-container">
+        <h2>Captured Photo</h2>
+        <!-- The captured photo will be updated when a blink is detected -->
+        <img
+          id="captured"
+          src="{{ url_for('static', filename='captured.jpg') }}"
+          alt="Captured Photo"
+        />
+      </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>

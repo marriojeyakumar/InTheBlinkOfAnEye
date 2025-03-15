@@ -1,0 +1,5 @@
+Flask
+opencv-python
+dlib
+imutils
+scipy
